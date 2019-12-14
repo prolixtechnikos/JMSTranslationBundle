@@ -25,7 +25,7 @@
         "psr/log": "^1.1",
         "symfony/symfony": "^2.3 || ^3.0 || ^4.0 || ^5.0",
         "symfony/expression-language": "^2.6 || ^3.0 || ^4.0 || ^5.0",
-        "/framework-extra-bundle": "^2.3 || ^3.0 || ^4.0 || ^5.5",
+        "sensio/framework-extra-bundle": "^2.3 || ^3.0 || ^4.0 || ^5.5",
         "matthiasnoback/symfony-dependency-injection-test": "^4.1",
         "nyholm/nsa": "1.1.*"
     },
