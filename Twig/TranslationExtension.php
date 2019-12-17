@@ -17,6 +17,7 @@
  */
 
 namespace JMS\TranslationBundle\Twig;
+use Twig\Extension\AbstractExtension;
 
 /**
  * Provides some extensions for specifying translation metadata.
@@ -25,7 +26,7 @@ namespace JMS\TranslationBundle\Twig;
  */
 use Symfony\Component\Translation\TranslatorInterface;
 
-class TranslationExtension extends \Twig_Extension
+class TranslationExtension extends AbstractExtension
 {
     /**
      * @var TranslatorInterface
