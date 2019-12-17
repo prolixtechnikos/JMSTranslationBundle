@@ -17,13 +17,16 @@
  */
 
 namespace JMS\TranslationBundle\Twig;
+use Twig\NodeVisitor\AbstractNodeVisitor;
+use Twig\Node\Node;
+use Twig\Environment;
 
 /**
  * Removes translation metadata filters from the AST.
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-class RemovingNodeVisitor extends \Twig_BaseNodeVisitor
+class RemovingNodeVisitor extends AbstractNodeVisitor
 {
     /**
      * @var bool
@@ -43,7 +46,7 @@ class RemovingNodeVisitor extends \Twig_BaseNodeVisitor
      * @param \Twig_Environment $env
      * @return \Twig_Node
      */
-    protected function doEnterNode(\Twig_Node $node, \Twig_Environment $env)
+    protected function doEnterNode(Node $node, Environment $env)
     {
         if ($this->enabled && $node instanceof \Twig_Node_Expression_Filter) {
             $name = $node->getNode('filter')->getAttribute('value');
@@ -61,7 +64,7 @@ class RemovingNodeVisitor extends \Twig_BaseNodeVisitor
      * @param \Twig_Environment $env
      * @return \Twig_Node
      */
-    protected function doLeaveNode(\Twig_Node $node, \Twig_Environment $env)
+    protected function doLeaveNode(Node $node, Environment $env)
     {
         return $node;
     }

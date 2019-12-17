@@ -17,6 +17,9 @@
  */
 
 namespace JMS\TranslationBundle\Twig;
+use Twig\NodeVisitor\AbstractNodeVisitor;
+use Twig\Node\Node;
+use Twig\Environment;
 
 /**
  * Performs equivalence transformations on the AST to ensure that
@@ -26,14 +29,14 @@ namespace JMS\TranslationBundle\Twig;
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-class NormalizingNodeVisitor extends \Twig_BaseNodeVisitor
+class NormalizingNodeVisitor extends AbstractNodeVisitor
 {
     /**
      * @param \Twig_Node $node
      * @param \Twig_Environment $env
      * @return \Twig_Node
      */
-    protected function doEnterNode(\Twig_Node $node, \Twig_Environment $env)
+    protected function doEnterNode(Node $node, Environment $env)
     {
         return $node;
     }
@@ -43,7 +46,7 @@ class NormalizingNodeVisitor extends \Twig_BaseNodeVisitor
      * @param \Twig_Environment $env
      * @return \Twig_Node_Expression_Constant|\Twig_Node
      */
-    protected function doLeaveNode(\Twig_Node $node, \Twig_Environment $env)
+    protected function doLeaveNode(Node $node, Environment $env)
     {
         if ($node instanceof \Twig_Node_Expression_Binary_Concat
             && ($left = $node->getNode('left')) instanceof \Twig_Node_Expression_Constant

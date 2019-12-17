@@ -19,6 +19,9 @@
 namespace JMS\TranslationBundle\Twig;
 
 use JMS\TranslationBundle\Exception\RuntimeException;
+use Twig\NodeVisitor\AbstractNodeVisitor;
+use Twig\Node\Node;
+use Twig\Environment;
 
 /**
  * Applies the value of the "desc" filter if the "trans" filter has no
@@ -28,7 +31,7 @@ use JMS\TranslationBundle\Exception\RuntimeException;
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-class DefaultApplyingNodeVisitor extends \Twig_BaseNodeVisitor
+class DefaultApplyingNodeVisitor extends AbstractNodeVisitor
 {
     /**
      * @var bool
@@ -48,7 +51,7 @@ class DefaultApplyingNodeVisitor extends \Twig_BaseNodeVisitor
      * @param \Twig_Environment $env
      * @return \Twig_Node
      */
-    public function doEnterNode(\Twig_Node $node, \Twig_Environment $env)
+    public function doEnterNode(Node $node, Environment $env)
     {
         if (!$this->enabled) {
             return $node;
@@ -125,7 +128,7 @@ class DefaultApplyingNodeVisitor extends \Twig_BaseNodeVisitor
      * @param \Twig_Environment $env
      * @return \Twig_Node
      */
-    public function doLeaveNode(\Twig_Node $node, \Twig_Environment $env)
+    public function doLeaveNode(Node $node, Environment $env)
     {
         return $node;
     }

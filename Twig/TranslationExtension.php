@@ -19,7 +19,7 @@
 namespace JMS\TranslationBundle\Twig;
 use Twig\Extension\AbstractExtension;
 use Symfony\Component\Translation\DataCollectorTranslator;
-
+use Twig\TwigFilter;
 /**
  * Provides some extensions for specifying translation metadata.
  *
@@ -73,8 +73,8 @@ class TranslationExtension extends AbstractExtension
     public function getFilters()
     {
         return array(
-            new \Twig_SimpleFilter('desc', array($this, 'desc')),
-            new \Twig_SimpleFilter('meaning', array($this, 'meaning')),
+            new TwigFilter('desc', array($this, 'desc')),
+            new TwigFilter('meaning', array($this, 'meaning')),
         );
     }
 
