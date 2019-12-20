@@ -18,7 +18,6 @@
 
 namespace JMS\TranslationBundle\Twig;
 use Twig\Extension\AbstractExtension;
-use Symfony\Component\Translation\DataCollectorTranslator;
 use Twig\TwigFilter;
 /**
  * Provides some extensions for specifying translation metadata.
@@ -44,7 +43,7 @@ class TranslationExtension extends AbstractExtension
      * @param TranslatorInterface $translator
      * @param bool $debug
      */
-    public function __construct(DataCollectorTranslator $translator, $debug = false)
+    public function __construct($translator, $debug = false)
     {
         $this->translator = $translator;
         $this->debug = $debug;
