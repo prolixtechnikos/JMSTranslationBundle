@@ -26,7 +26,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Finder\Finder;
 use JMS\TranslationBundle\Util\FileUtils;
 
@@ -34,7 +34,7 @@ use JMS\TranslationBundle\Util\FileUtils;
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Thomas Rabaix <thomas.rabaix@sonata-project.org>
  */
-class ResourcesListCommand extends ContainerAwareCommand
+class ResourcesListCommand extends Command
 {
     /**
      * {@inheritdoc}
