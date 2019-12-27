@@ -29,8 +29,8 @@ use JMS\TranslationBundle\Model\MessageCatalogue;
 use JMS\TranslationBundle\Translation\Extractor\FileVisitorInterface;
 use JMS\TranslationBundle\Translation\FileSourceFactory;
 use PhpParser\Node;
-use PhpParser\NodeVisitor;
 use PhpParser\NodeTraverser;
+use PhpParser\NodeVisitor;
 use Psr\Log\LoggerInterface;
 use Twig\Node\Node;
 
