@@ -55,16 +55,16 @@ class ResourcesListCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $rootPath = realpath($this->getContainer()->getParameter('kernel.root_dir'));
-        $basePath = realpath($this->getContainer()->getParameter('kernel.root_dir').'/..');
+        $rootPath = realpath($this->getContainer()->getParameter('kernel.project_dir') . '/app');
+        $basePath = realpath($this->getContainer()->getParameter('kernel.project_dir'));
 
         $dirs = $this->retrieveDirs();
 
         if (!$input->hasParameterOption('--files')) {
             $output->writeln('<info>Directories list :</info>');
             foreach ($dirs as $dir) {
-                $path = str_replace($rootPath, '%kernel.root_dir%', $dir);
-                $path = str_replace($basePath, '%kernel.root_dir%/..', $path);
+                $path = str_replace($rootPath, '%kernel.project_dir%/app', $dir);
+                $path = str_replace($basePath, '%kernel.project_dir%', $path);
                 $output->writeln(sprintf('    - %s', $path));
             }
 
@@ -78,7 +78,7 @@ class ResourcesListCommand extends Command
         $files = $this->retrieveFiles($dirs);
 
         foreach ($files as $file) {
-            $path = str_replace($basePath, '%kernel.root_dir%', $file);
+            $path = str_replace($basePath, '%kernel.project_dir%/app', $file);
             $output->writeln(sprintf(' - %s', $path));
         }
 
@@ -120,7 +120,7 @@ class ResourcesListCommand extends Command
             }
         }
 
-        if (is_dir($dir = $this->getContainer()->getParameter('kernel.root_dir').'/Resources/translations')) {
+        if (is_dir($dir = $this->getContainer()->getParameter('kernel.project_dir') . '/app/Resources/translations')) {
             $dirs[] = $dir;
         }
 

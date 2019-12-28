@@ -34,7 +34,7 @@ class FileSourceFactory
      */
     public function __construct($kernelRoot)
     {
-        $this->kernelRoot = $kernelRoot;
+        $this->kernelRoot = $kernelRoot . '/app';
     }
 
     /**
