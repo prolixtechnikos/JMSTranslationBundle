@@ -25,7 +25,7 @@ use JMS\TranslationBundle\Translation\Extractor\FileVisitorInterface;
 use PhpParser\Node;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor;
-use Twig\Node\Node;
+use Twig\Node\Node as TwigNode;
 
 /**
  * Extracts translations from designated translation containers.
@@ -175,9 +175,9 @@ class TranslationContainerExtractor implements FileVisitorInterface, NodeVisitor
     /**
      * @param \SplFileInfo $file
      * @param MessageCatalogue $catalogue
-     * @param Node $ast
+     * @param TwigNode $ast
      */
-    public function visitTwigFile(\SplFileInfo $file, MessageCatalogue $catalogue, Node $ast)
+    public function visitTwigFile(\SplFileInfo $file, MessageCatalogue $catalogue, TwigNode $ast)
     {
     }
 }
