@@ -34,7 +34,7 @@ use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor;
 use PhpParser\Node\Scalar\String_;
 use Psr\Log\LoggerInterface;
-use Twig\Node\Node;
+use Twig\Node\Node as TwigNode;
 
 /**
  * This parser can extract translation information from PHP files.
@@ -237,9 +237,9 @@ class DefaultPhpFileExtractor implements LoggerAwareInterface, FileVisitorInterf
     /**
      * @param \SplFileInfo $file
      * @param MessageCatalogue $catalogue
-     * @param Node $ast
+     * @param TwigNode $ast
      */
-    public function visitTwigFile(\SplFileInfo $file, MessageCatalogue $catalogue, Node $ast)
+    public function visitTwigFile(\SplFileInfo $file, MessageCatalogue $catalogue, TwigNode $ast)
     {
     }
 
