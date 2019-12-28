@@ -27,7 +27,7 @@ use PhpParser\NodeTraverser;
 use Symfony\Component\Validator\Mapping\ClassMetadataFactoryInterface;
 use Symfony\Component\Validator\Mapping\Factory\MetadataFactoryInterface;
 use Symfony\Component\Validator\MetadataFactoryInterface as LegacyMetadataFactoryInterface;
-use Twig\Node\Node;
+use Twig\Node\Node as TwigNode;
 
 /**
  * Extracts translations validation constraints.
@@ -165,9 +165,9 @@ class ValidationExtractor implements FileVisitorInterface, NodeVisitor
     /**
      * @param \SplFileInfo $file
      * @param MessageCatalogue $catalogue
-     * @param Node $ast
+     * @param TwigNode $ast
      */
-    public function visitTwigFile(\SplFileInfo $file, MessageCatalogue $catalogue, Node $ast)
+    public function visitTwigFile(\SplFileInfo $file, MessageCatalogue $catalogue, TwigNode $ast)
     {
     }
 
