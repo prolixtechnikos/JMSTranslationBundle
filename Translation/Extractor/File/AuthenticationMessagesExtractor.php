@@ -32,7 +32,7 @@ use PhpParser\Node;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor;
 use Psr\Log\LoggerInterface;
-use Twig\Node\Node;
+use Twig\Node\Node as TwigNode;
 
 class AuthenticationMessagesExtractor implements LoggerAwareInterface, FileVisitorInterface, NodeVisitor
 {
@@ -267,9 +267,9 @@ class AuthenticationMessagesExtractor implements LoggerAwareInterface, FileVisit
     /**
      * @param \SplFileInfo $file
      * @param MessageCatalogue $catalogue
-     * @param Node $ast
+     * @param TwigNode $ast
      */
-    public function visitTwigFile(\SplFileInfo $file, MessageCatalogue $catalogue, Node $ast)
+    public function visitTwigFile(\SplFileInfo $file, MessageCatalogue $catalogue, TwigNode $ast)
     {
     }
 }
