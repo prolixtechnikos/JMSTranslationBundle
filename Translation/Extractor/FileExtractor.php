@@ -18,18 +18,22 @@
 
 namespace JMS\TranslationBundle\Translation\Extractor;
 
-use JMS\TranslationBundle\Twig\DefaultApplyingNodeVisitor;
 use JMS\TranslationBundle\Exception\InvalidArgumentException;
+use JMS\TranslationBundle\Logger\LoggerAwareInterface;
+use JMS\TranslationBundle\Model\MessageCatalogue;
+use JMS\TranslationBundle\Translation\ExtractorInterface;
+use JMS\TranslationBundle\Twig\DefaultApplyingNodeVisitor;
+use JMS\TranslationBundle\Twig\RemovingNodeVisitor;
 use PhpParser\Error;
 use PhpParser\Lexer;
 use PhpParser\Parser;
 use PhpParser\ParserFactory;
 use Psr\Log\LoggerInterface;
-use JMS\TranslationBundle\Logger\LoggerAwareInterface;
-use JMS\TranslationBundle\Twig\RemovingNodeVisitor;
-use JMS\TranslationBundle\Translation\ExtractorInterface;
-use JMS\TranslationBundle\Model\MessageCatalogue;
 use Symfony\Component\Finder\Finder;
+use Twig\Environment;
+use Twig\Loader\ArrayLoader;
+use Twig\NodeVisitor\NodeVisitorInterface;
+use Twig\Source;
 
 /**
  * File-based extractor.
@@ -39,7 +43,7 @@ use Symfony\Component\Finder\Finder;
 class FileExtractor implements ExtractorInterface, LoggerAwareInterface
 {
     /**
-     * @var \Twig_Environment
+     * @var Environment
      */
     private $twig;
 
@@ -64,12 +68,12 @@ class FileExtractor implements ExtractorInterface, LoggerAwareInterface
     private $directory;
 
     /**
-     * @var RemovingNodeVisitor|\Twig_NodeVisitorInterface
+     * @var RemovingNodeVisitor|NodeVisitorInterface
      */
     private $removingTwigVisitor;
 
     /**
-     * @var DefaultApplyingNodeVisitor|RemovingNodeVisitor|\Twig_NodeVisitorInterface
+     * @var DefaultApplyingNodeVisitor|RemovingNodeVisitor|NodeVisitorInterface
      */
     private $defaultApplyingTwigVisitor;
 
@@ -90,11 +94,11 @@ class FileExtractor implements ExtractorInterface, LoggerAwareInterface
 
     /**
      * FileExtractor constructor.
-     * @param \Twig_Environment $twig
+     * @param Environment $twig
      * @param LoggerInterface $logger
      * @param array $visitors
      */
-    public function __construct(\Twig_Environment $twig, LoggerInterface $logger, array $visitors)
+    public function __construct(Environment $twig, LoggerInterface $logger, array $visitors)
     {
         $this->twig = $twig;
         $this->visitors = $visitors;
@@ -203,7 +207,7 @@ class FileExtractor implements ExtractorInterface, LoggerAwareInterface
         }
 
         $curTwigLoader = $this->twig->getLoader();
-        $this->twig->setLoader(new \Twig_Loader_Array(array()));
+        $this->twig->setLoader(ArrayLoader([]));
 
         try {
             $catalogue = new MessageCatalogue();
@@ -227,7 +231,7 @@ class FileExtractor implements ExtractorInterface, LoggerAwareInterface
                         $visitingArgs[] = $ast;
                     } elseif ('twig' === $extension) {
                         $visitingMethod = 'visitTwigFile';
-                        $visitingArgs[] = $this->twig->parse($this->twig->tokenize(new \Twig_Source(file_get_contents($file), (string) $file)));
+                        $visitingArgs[] = $this->twig->parse($this->twig->tokenize(new Source(file_get_contents($file), (string) $file)));
                     }
                 }
 

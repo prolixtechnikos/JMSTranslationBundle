@@ -18,20 +18,21 @@
 
 namespace JMS\TranslationBundle\Translation\Extractor\File;
 
-use JMS\TranslationBundle\Exception\RuntimeException;
-use JMS\TranslationBundle\Model\Message;
-use JMS\TranslationBundle\Annotation\Meaning;
+use Doctrine\Common\Annotations\DocParser;
 use JMS\TranslationBundle\Annotation\Desc;
 use JMS\TranslationBundle\Annotation\Ignore;
+use JMS\TranslationBundle\Annotation\Meaning;
+use JMS\TranslationBundle\Exception\RuntimeException;
+use JMS\TranslationBundle\Logger\LoggerAwareInterface;
+use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Model\MessageCatalogue;
 use JMS\TranslationBundle\Translation\Extractor\FileVisitorInterface;
-use Doctrine\Common\Annotations\DocParser;
-use JMS\TranslationBundle\Logger\LoggerAwareInterface;
 use JMS\TranslationBundle\Translation\FileSourceFactory;
 use PhpParser\Node;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor;
 use Psr\Log\LoggerInterface;
+use Twig\Node\Node as TwigNode;
 
 class AuthenticationMessagesExtractor implements LoggerAwareInterface, FileVisitorInterface, NodeVisitor
 {
@@ -266,9 +267,9 @@ class AuthenticationMessagesExtractor implements LoggerAwareInterface, FileVisit
     /**
      * @param \SplFileInfo $file
      * @param MessageCatalogue $catalogue
-     * @param \Twig_Node $ast
+     * @param TwigNode $ast
      */
-    public function visitTwigFile(\SplFileInfo $file, MessageCatalogue $catalogue, \Twig_Node $ast)
+    public function visitTwigFile(\SplFileInfo $file, MessageCatalogue $catalogue, TwigNode $ast)
     {
     }
 }
