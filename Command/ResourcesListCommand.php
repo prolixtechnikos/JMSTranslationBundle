@@ -37,6 +37,29 @@ use JMS\TranslationBundle\Util\FileUtils;
 class ResourcesListCommand extends Command
 {
     /**
+     * @var string
+     */
+    private $projectDir = '';
+
+    /**
+     * @var string
+     */
+    private $translationDir = '';
+
+    /**
+     * @var array
+     */
+    private $bundles = array();
+
+    public function __construct($projectDir, $translationDir, array $bundles)
+    {
+        $this->projectDir = $projectDir;
+        $this->translationDir = $translationDir;
+        $this->bundles = $bundles;
+        parent::__construct('translation:list-resources');
+    }
+
+    /**
      * {@inheritdoc}
      */
     protected function configure()
@@ -55,16 +78,16 @@ class ResourcesListCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $rootPath = realpath($this->getContainer()->getParameter('kernel.root_dir'));
-        $basePath = realpath($this->getContainer()->getParameter('kernel.root_dir').'/..');
+        $rootPath = realpath($this->projectDir . '/app');
+        $basePath = realpath($this->projectDir);
 
         $dirs = $this->retrieveDirs();
 
         if (!$input->hasParameterOption('--files')) {
             $output->writeln('<info>Directories list :</info>');
             foreach ($dirs as $dir) {
-                $path = str_replace($rootPath, '%kernel.root_dir%', $dir);
-                $path = str_replace($basePath, '%kernel.root_dir%/..', $path);
+                $path = str_replace($rootPath, '%kernel.project_dir/app%', $dir);
+                $path = str_replace($basePath, '%kernel.project_dir%', $path);
                 $output->writeln(sprintf('    - %s', $path));
             }
 
@@ -113,14 +136,15 @@ class ResourcesListCommand extends Command
     {
         // Discover translation directories
         $dirs = array();
-        foreach ($this->getContainer()->getParameter('kernel.bundles') as $bundle) {
+        foreach ($this->bundles as $bundle) {
             $reflection = new \ReflectionClass($bundle);
             if (is_dir($dir = dirname($reflection->getFilename()).'/Resources/translations')) {
                 $dirs[] = $dir;
             }
         }
 
-        if (is_dir($dir = $this->getContainer()->getParameter('kernel.root_dir').'/Resources/translations')) {
+        // Symfony 5 translations dir
+        if (is_dir($dir = $this->translationDir)) {
             $dirs[] = $dir;
         }
 
